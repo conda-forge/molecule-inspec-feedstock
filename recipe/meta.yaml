@@ -7,24 +7,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/molecule-inspec-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/molecule-inspec-{{ version }}.tar.gz
   sha256: dd171044547ecb777e4c35c1fe02fbb294a9a2972a7c9b5ab8522fa24a9092a8
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   noarch: python
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools_scm >=1.15.0
     - setuptools_scm_git_archive >=1.0
   run:
     - ansible >=2.10.3
     - molecule >=3.2.0
-    - python >=3.7
+    - python >={{ python_min }}
     - pyyaml >=5.1,<6
 
 test:
@@ -35,6 +35,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/pycontribs/molecule-inspec
